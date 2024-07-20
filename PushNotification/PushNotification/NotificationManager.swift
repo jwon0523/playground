@@ -9,63 +9,51 @@ import SwiftUI
 import UserNotifications
 import CoreLocation
 
-class NotificationManager {
+class NotificationManager: ObservableObject {
     static let instance = NotificationManager()
     
-    func requestAuthorization() {
-        let options: UNAuthorizationOptions = [.alert, .sound, .badge]
-        UNUserNotificationCenter.current().requestAuthorization(options: options) { (success, error) in
-            if let error = error {
-                print("ERROR: \(error)")
-            } else {
-                print("SUCCESS")
+    @Published var authorizationStatus: UNAuthorizationStatus?
+    
+    init() {
+        UNUserNotificationCenter.current().getNotificationSettings { settings in
+            DispatchQueue.main.async {
+                self.authorizationStatus = settings.authorizationStatus
             }
         }
     }
     
-    func scheduleNotification() {
+    func requestAuthorization() {
+        let options: UNAuthorizationOptions = [.alert, .sound, .badge]
+        UNUserNotificationCenter.current().requestAuthorization(options: options) { (granted, error) in
+            DispatchQueue.main.async {
+                if let error = error {
+                    print("ERROR: \(error)")
+                } else {
+                    print("Permission granted: \(granted)")
+                    self.authorizationStatus = granted ? .authorized : .denied
+                }
+            }
+        }
+    }
+    
+    func scheduleNotification(date: Date) {
         let content = UNMutableNotificationContent()
-        content.title = "This is my first notification!"
-        content.subtitle = "This was so easy!"
+        content.title = "Scheduled Alert"
+        content.subtitle = "This is your custom notification!"
         content.sound = .default
         content.badge = 1
         
-        // time
-        let trigger = UNTimeIntervalNotificationTrigger(
-            timeInterval: 5.0,
-            repeats: false)
+        let triggerDate = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)
+        let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: false)
         
-        // calender
-//        var dateComponentes = DateComponents()
-//        // Execute push notification at 01:57 am everyday
-//        dateComponentes.hour = 1
-//        dateComponentes.minute = 57
-//        dateComponentes.weekday = 7 // Saturday
-//        
-//        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponentes, repeats: true)
-//        
-        // location
-//        let coordinates = CLLocationCoordinate2D(latitude: 40.00, longitude: 50.00)
-//        
-//        let region = CLCircularRegion(
-//            center: coordinates,
-//            radius: 100,
-//            identifier: UUID().uuidString
-//        )
-//        region.notifyOnEntry = true
-//        region.notifyOnExit = false
-//        let trigger = UNLocationNotificationTrigger(
-//            region: region,
-//            repeats: true
-//        )
-        
-        // request
-        let request = UNNotificationRequest(
-            identifier: UUID().uuidString,
-            content: content,
-            trigger: trigger
-        )
-        UNUserNotificationCenter.current().add(request)
+        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+        UNUserNotificationCenter.current().add(request) { error in
+            if let error = error {
+                print("Error scheduling notification: \(error)")
+            } else {
+                print("Notification scheduled for \(date)!")
+            }
+        }
     }
     
     func cancelNotification() {
@@ -75,26 +63,43 @@ class NotificationManager {
 }
 
 struct ContentView: View {
+    @ObservedObject private var notificationManager = NotificationManager.instance
+    @State private var selectedDate = Date()
+    
     var body: some View {
-        VStack(spacing: 40) {
-            Button(action: {
-                NotificationManager.instance.requestAuthorization()
-            }, label: {
-                Text("Request permissions")
-            })
-            Button(action: {
-                NotificationManager.instance.scheduleNotification()
-            }, label: {
-                Text("Schedule notification")
-            })
-            Button(action: {
-                NotificationManager.instance.cancelNotification()
-            }, label: {
-                Text("Cancel notification")
-            })
+        VStack(spacing: 20) {
+            if notificationManager.authorizationStatus == .notDetermined {
+                Button("Request permissions") {
+                    notificationManager.requestAuthorization()
+                }
+                .buttonStyle(.borderedProminent)
+            } else if notificationManager.authorizationStatus == .denied {
+                Text("Notification permission denied. Please enable it in settings.")
+                    .foregroundColor(.red)
+            } else {
+                DatePicker("Select Date and Time:", selection: $selectedDate, displayedComponents: [.date, .hourAndMinute])
+                    .padding()
+                
+                Button("Schedule notification") {
+                    notificationManager.scheduleNotification(date: selectedDate)
+                }
+                .buttonStyle(.bordered)
+                
+                Button("Cancel notification") {
+                    notificationManager.cancelNotification()
+                }
+                .buttonStyle(.bordered)
+            }
         }
+        .padding()
         .onAppear {
-            UIApplication.shared.applicationIconBadgeNumber = 0
+            UNUserNotificationCenter.current().setBadgeCount(0) { error in
+                if let error = error {
+                    print("Failed to reset badge count: \(error)")
+                } else {
+                    print("Badge count reset successfully")
+                }
+            }
         }
     }
 }
