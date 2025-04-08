@@ -1,6 +1,6 @@
 //
 //  ContentView.swift
-//  CameraPickerEx
+//  OCR_Ex
 //
 //  Created by jaewon Lee on 4/8/25.
 //
@@ -10,7 +10,7 @@ import PhotosUI
 
 struct ContentView: View {
     var body: some View {
-        CameraPickerWithActionSheet()
+        OCRView()
     }
 }
 

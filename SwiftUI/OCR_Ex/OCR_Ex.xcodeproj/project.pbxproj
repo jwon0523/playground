@@ -11,9 +11,9 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		0E9314C12DA5055900B06EB8 /* CameraPickerEx */ = {
+		0E9314C12DA5055900B06EB8 /* OCR_Ex */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = CameraPickerEx;
+			path = OCR_Ex;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -32,7 +32,7 @@
 		0E9314B62DA5055900B06EB8 = {
 			isa = PBXGroup;
 			children = (
-				0E9314C12DA5055900B06EB8 /* CameraPickerEx */,
+				0E9314C12DA5055900B06EB8 /* OCR_Ex */,
 				0E9314C02DA5055900B06EB8 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -61,7 +61,7 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				0E9314C12DA5055900B06EB8 /* CameraPickerEx */,
+				0E9314C12DA5055900B06EB8 /* OCR_Ex */,
 			);
 			name = CameraPickerEx;
 			packageProductDependencies = (
@@ -85,7 +85,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 0E9314BA2DA5055900B06EB8 /* Build configuration list for PBXProject "CameraPickerEx" */;
+			buildConfigurationList = 0E9314BA2DA5055900B06EB8 /* Build configuration list for PBXProject "OCR_Ex" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -251,7 +251,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"CameraPickerEx/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"OCR_Ex/Preview Content\"";
 				DEVELOPMENT_TEAM = 6H8Y6F23HB;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -282,7 +282,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"CameraPickerEx/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"OCR_Ex/Preview Content\"";
 				DEVELOPMENT_TEAM = 6H8Y6F23HB;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -309,7 +309,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		0E9314BA2DA5055900B06EB8 /* Build configuration list for PBXProject "CameraPickerEx" */ = {
+		0E9314BA2DA5055900B06EB8 /* Build configuration list for PBXProject "OCR_Ex" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0E9314CB2DA5055B00B06EB8 /* Debug */,
