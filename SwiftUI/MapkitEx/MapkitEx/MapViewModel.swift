@@ -23,4 +23,16 @@ final class MapViewModel {
             title: "마로니에 공원"
         )
     ]
+    
+    let geofenceCoordinate = CLLocationCoordinate2D(latitude: 37.583123, longitude: 127.010695)
+    let geofenceRadius: CLLocationDistance = 100
+    let geofenceIdentifier = "한성대"
+    
+    init() {
+        LocationManager.shared.startMonitoringGeofence(
+            center: geofenceCoordinate,
+            radius: geofenceRadius,
+            identifier: geofenceIdentifier
+        )
+    }
 }
