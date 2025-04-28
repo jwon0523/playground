@@ -13,7 +13,7 @@ final class MapViewModel {
     var cameraPosition: MapCameraPosition = .userLocation(fallback: .automatic)
     var currentMapCenter: CLLocationCoordinate2D?
     
-    var markers: [Marker] = [
+    var makers: [Marker] = [
         .init(
             coordinate: .init(latitude: 37.583123, longitude: 127.010695),
             title: "한성대학교"

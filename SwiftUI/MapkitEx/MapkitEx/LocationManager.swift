@@ -5,15 +5,19 @@
 //  Created by jaewon Lee on 4/28/25.
 //
 
+import Foundation
 import CoreLocation
 import MapKit
+import Observation
 
 @Observable
 class LocationManager: NSObject {
     static let shared = LocationManager()
     
+    // MARK: - CLLocationManager
     private let locationManager = CLLocationManager()
     
+    // MARK: - Published Properties
     var currentLocation: CLLocation?
     var currentHeading: CLHeading?
     
@@ -22,8 +26,10 @@ class LocationManager: NSObject {
     var authorizationStatus: CLAuthorizationStatus = .notDetermined
     var didEnterGeofence: Bool = false
     
+    // MARK: - Init
     override init() {
         super.init()
+        
         locationManager.delegate = self
         /// kCLLocationAccuracyBest 설정
         /// - 가능한 가장 높은 수준의 정확도로 위치를 요청.
@@ -36,6 +42,10 @@ class LocationManager: NSObject {
         /// - 아주 작은 변화도 모두 반영
         /// - 사용자가 핸드폰을 살짝 돌려도 방향 정보가 업데이트 됨
         locationManager.headingFilter = kCLHeadingFilterNone
+        
+        requestAuthorization()
+        startUpdatingLocation()
+        startUpdatingHeading()
     }
     
     // MARK: - 권한 요청
@@ -47,6 +57,10 @@ class LocationManager: NSObject {
     // MARK: - 위치 추적
     func startUpdatingLocation() {
         locationManager.startUpdatingLocation()
+    }
+    
+    func stopUpdatingLocation() {
+        locationManager.stopUpdatingLocation()
     }
     
     // MARK: - 방향 추적
@@ -77,7 +91,7 @@ class LocationManager: NSObject {
         center: CLLocationCoordinate2D,
         radius: CLLocationDistance,
         identifier: String
-    ) async {
+    ) {
         let region = CLCircularRegion(
             center: center,
             radius: radius,
@@ -103,26 +117,26 @@ class LocationManager: NSObject {
             locationManager.stopMonitoring(for: region)
         }
     }
-    
 }
 
+// MARK: - CLLocationManagerDelegate
 extension LocationManager: CLLocationManagerDelegate {
     
     // 권한 변경 감지
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         authorizationStatus = manager.authorizationStatus
     }
-    
-    // 위치 업데이트 감지(기본 위치 추적 + Significant Change)
+
+    // 위치 업데이트 감지 (기본 위치 추적 + Significant Change)
     func locationManager(
         _ manager: CLLocationManager,
         didUpdateLocations locations: [CLLocation]
     ) {
-        guard let latest = locations.last else { return }
-        
-        DispatchQueue.main.async {
-            self.currentLocation = latest
-            self.currentSpeed = max(latest.speed, 0)
+        if let latest = locations.last {
+            DispatchQueue.main.async {
+                self.currentLocation = latest
+                self.currentSpeed = max(latest.speed, 0)
+            }
         }
     }
     
