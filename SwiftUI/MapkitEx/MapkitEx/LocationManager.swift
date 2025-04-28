@@ -18,6 +18,8 @@ class LocationManager: NSObject {
     // MARK: - CLLocationManager
     private let locationManager = CLLocationManager()
     
+    private var monitor: CLMonitor?
+    
     // MARK: - Published Properties
     var currentLocation: CLLocation?
     var currentHeading: CLHeading?
@@ -91,6 +93,11 @@ class LocationManager: NSObject {
     }
 
     // MARK: - 지오펜싱
+    /// 주어진 중심 좌표와 반경으로 지오펜싱을 설정하고 모니터링을 시작한다..
+    /// - Parameters:
+    ///   - center: 중심 좌표
+    ///   - radius: 반경 (단위: 미터)
+    ///   - identifier: 지오펜스 식별자
     func startMonitoringGeofence(
         center: CLLocationCoordinate2D,
         radius: CLLocationDistance,
@@ -108,8 +115,18 @@ class LocationManager: NSObject {
         // FIXME: Deprecated 코드이므로 변경 필요
         locationManager.startMonitoring(for: region)
         print("Monitoring regions: \(locationManager.monitoredRegions)")
+        
+//        // TODO: CLMonitor에 대한 추가적인 공부 필요(작동 안됨..)
+//        monitor = await CLMonitor("MapKitExMonitor")
+//        let condition = CLMonitor.CircularGeographicCondition(center: center, radius: radius)
+//        Task {
+//            await monitor?.add(condition, identifier: identifier)
+//            print(monitor.debugDescription)
+//        }
+        
     }
 
+    /// 등록된 모든 지오펜스 모니터링 중지
     func stopMonitoringAllGeofences() {
         for region in locationManager.monitoredRegions {
             // FIXME: Deprecated 코드이므로 변경 필요
@@ -121,7 +138,7 @@ class LocationManager: NSObject {
 // MARK: - CLLocationManagerDelegate
 extension LocationManager: CLLocationManagerDelegate {
     
-    // 권한 변경 감지
+    // 위치 권한 변경 감지
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         authorizationStatus = manager.authorizationStatus
     }
