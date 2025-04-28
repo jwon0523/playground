@@ -10,6 +10,7 @@ import MapKit
 
 struct ContentView: View {
     
+    @State private var motionManager = MotionManager.shared
     @State private var locationManager = LocationManager.shared
     @State private var viewModel: MapViewModel = .init()
     
@@ -34,33 +35,40 @@ struct ContentView: View {
                     })
                 })
                 
-                UserAnnotation()
+//                UserAnnotation()
+                if let location = locationManager.currentLocation {
+                    Annotation("내 위치", coordinate: location.coordinate) {
+                        VStack {
+                            Image(systemName: "location.north.fill")
+                                .resizable()
+                                .frame(width: 20, height: 20)
+                                .rotationEffect(.radians(-motionManager.heading))
+                        }
+                    }
+                }
                 
-                MapCircle(
-                    center: viewModel.geofenceCoordinate,
-                    radius: viewModel.geofenceRadius
-                )
-                .foregroundStyle(.blue.opacity(0.2))
-                .stroke(.blue, lineWidth: 2)
+                MapCircle(center: viewModel.geofenceCoordinate, radius: viewModel.geofenceRadius)
+                    .foregroundStyle(Color.blue.opacity(0.2))
+                    .stroke(Color.blue, lineWidth: 2)
             }
             .onChange(of: locationManager.didEnterGeofence) { _, entered in
                 if entered {
                     showEnteredAlert = true
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                        showEnteredAlert = true
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                        showEnteredAlert = false
                         locationManager.didEnterGeofence = false
                     }
                 }
             }
             .onChange(of: locationManager.didExitGeofence) { _, exited in
-                            if exited {
-                                showExitedAlert = true
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                                    showExitedAlert = false
-                                    locationManager.didExitGeofence = false
-                                }
-                            }
-                        }
+                if exited {
+                    showExitedAlert = true
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                        showExitedAlert = false
+                        locationManager.didExitGeofence = false
+                    }
+                }
+            }
             
             MapUserLocationButton(scope: mapScope)
                 .overlay(content: {
@@ -97,6 +105,15 @@ struct ContentView: View {
             }
         }
         .mapScope(mapScope)
+        .overlay(alignment: .top, content: {
+            VStack(content: {
+                HStack(spacing: 10) {
+                    Text("속도: \(locationManager.currentSpeed, specifier: "%.2f") m/s")
+                    
+                    Text("방향: \(locationManager.currentDirection, specifier: "%.0f")°")
+                }
+            })
+        })
     }
 }
 
