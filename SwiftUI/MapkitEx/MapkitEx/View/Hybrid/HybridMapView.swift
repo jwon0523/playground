@@ -43,7 +43,9 @@ struct HybridMapView: UIViewRepresentable {
             uiView.addAnnotation(annotation)
         }
         
-        cameraCenter = uiView.centerCoordinate
+        DispatchQueue.main.async {
+            cameraCenter = uiView.centerCoordinate
+        }
     }
     
     
