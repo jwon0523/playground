@@ -92,38 +92,60 @@ class LocationManager: NSObject {
         locationManager.startMonitoringVisits()
     }
 
-    // MARK: - 지오펜싱
+//    // MARK: - 지오펜싱
+//    /// 주어진 중심 좌표와 반경으로 지오펜싱을 설정하고 모니터링을 시작한다..
+//    /// - Parameters:
+//    ///   - center: 중심 좌표
+//    ///   - radius: 반경 (단위: 미터)
+//    ///   - identifier: 지오펜스 식별자
+//    func startMonitoringGeofence(
+//        center: CLLocationCoordinate2D,
+//        radius: CLLocationDistance,
+//        identifier: String
+//    ) {
+//        let region = CLCircularRegion(
+//            center: center,
+//            radius: radius,
+//            identifier: identifier
+//        )
+//        
+//        region.notifyOnEntry = true
+//        region.notifyOnExit = true
+//        
+//        // FIXME: Deprecated 코드이므로 변경 필요
+//        locationManager.startMonitoring(for: region)
+//        print("Monitoring regions: \(locationManager.monitoredRegions)")
+//        
+//    }
+    
+    // MARK: - CLMonitor를 사용한 지오펜싱(iOS17 이상)
     /// 주어진 중심 좌표와 반경으로 지오펜싱을 설정하고 모니터링을 시작한다..
     /// - Parameters:
     ///   - center: 중심 좌표
     ///   - radius: 반경 (단위: 미터)
     ///   - identifier: 지오펜스 식별자
-    func startMonitoringGeofence(
+    func startMonitoringGeofenceWithCLMonitor(
         center: CLLocationCoordinate2D,
         radius: CLLocationDistance,
         identifier: String
     ) {
-        let region = CLCircularRegion(
-            center: center,
-            radius: radius,
-            identifier: identifier
-        )
-        
-        region.notifyOnEntry = true
-        region.notifyOnExit = true
-        
-        // FIXME: Deprecated 코드이므로 변경 필요
-        locationManager.startMonitoring(for: region)
-        print("Monitoring regions: \(locationManager.monitoredRegions)")
-        
-//        // TODO: CLMonitor에 대한 추가적인 공부 필요(작동 안됨..)
-//        monitor = await CLMonitor("MapKitExMonitor")
-//        let condition = CLMonitor.CircularGeographicCondition(center: center, radius: radius)
-//        Task {
-//            await monitor?.add(condition, identifier: identifier)
-//            print(monitor.debugDescription)
-//        }
-        
+        Task {
+            monitor = await CLMonitor("MapKit_monitor")
+            
+            guard let monitor else { return }
+            
+            let condition = CLMonitor.CircularGeographicCondition(center: center, radius: radius)
+            await monitor.add(condition, identifier: identifier)
+            
+            for try await event in await monitor.events {
+                print("Monitoring region: \(event)")
+                if event.state == .satisfied {
+                    print("영역에 진입함")
+                } else {
+                    print("영역을 벗어남")
+                }
+            }
+        }
     }
 
     /// 등록된 모든 지오펜스 모니터링 중지

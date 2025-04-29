@@ -48,7 +48,12 @@ final class MapViewModel {
     let geofenceIdentifier = "한성대"
     
     init() {
-        LocationManager.shared.startMonitoringGeofence(
+//        LocationManager.shared.startMonitoringGeofence(
+//            center: geofenceCoordinate,
+//            radius: geofenceRadius,
+//            identifier: geofenceIdentifier
+//        )
+        LocationManager.shared.startMonitoringGeofenceWithCLMonitor(
             center: geofenceCoordinate,
             radius: geofenceRadius,
             identifier: geofenceIdentifier
