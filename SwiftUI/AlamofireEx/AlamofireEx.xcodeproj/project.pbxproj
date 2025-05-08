@@ -8,12 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		0EDF86AC2DCC7EE5004DAE42 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 0EDF86AB2DCC7EE5004DAE42 /* Alamofire */; };
-		0EDF86C92DCC91A7004DAE42 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDF86C82DCC91A7004DAE42 /* Config.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0EDF86952DCC7E44004DAE42 /* AlamofireEx.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AlamofireEx.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		0EDF86C82DCC91A7004DAE42 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -52,7 +50,6 @@
 		0EDF868C2DCC7E43004DAE42 = {
 			isa = PBXGroup;
 			children = (
-				0EDF86C82DCC91A7004DAE42 /* Config.swift */,
 				0EDF86972DCC7E44004DAE42 /* AlamofireEx */,
 				0EDF86962DCC7E44004DAE42 /* Products */,
 			);
@@ -144,7 +141,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0EDF86C92DCC91A7004DAE42 /* Config.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
