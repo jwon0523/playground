@@ -13,7 +13,7 @@ final class ServiceManager {
     static let shared = ServiceManager()
     
     private let session: Session
-    private let urlString: String = "http://localhost:8080/person"
+    private let urlString: String = "\(Config.baseURL)/person"
     
     init() {
         let configuration = URLSessionConfiguration.default

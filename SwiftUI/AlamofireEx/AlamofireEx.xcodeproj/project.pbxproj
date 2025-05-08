@@ -8,15 +8,30 @@
 
 /* Begin PBXBuildFile section */
 		0EDF86AC2DCC7EE5004DAE42 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 0EDF86AB2DCC7EE5004DAE42 /* Alamofire */; };
+		0EDF86C92DCC91A7004DAE42 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDF86C82DCC91A7004DAE42 /* Config.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0EDF86952DCC7E44004DAE42 /* AlamofireEx.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AlamofireEx.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0EDF86C82DCC91A7004DAE42 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		0EDF86C72DCC913C004DAE42 /* Exceptions for "AlamofireEx" folder in "AlamofireEx" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 0EDF86942DCC7E44004DAE42 /* AlamofireEx */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		0EDF86972DCC7E44004DAE42 /* AlamofireEx */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				0EDF86C72DCC913C004DAE42 /* Exceptions for "AlamofireEx" folder in "AlamofireEx" target */,
+			);
 			path = AlamofireEx;
 			sourceTree = "<group>";
 		};
@@ -37,6 +52,7 @@
 		0EDF868C2DCC7E43004DAE42 = {
 			isa = PBXGroup;
 			children = (
+				0EDF86C82DCC91A7004DAE42 /* Config.swift */,
 				0EDF86972DCC7E44004DAE42 /* AlamofireEx */,
 				0EDF86962DCC7E44004DAE42 /* Products */,
 			);
@@ -128,6 +144,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0EDF86C92DCC91A7004DAE42 /* Config.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -136,6 +153,8 @@
 /* Begin XCBuildConfiguration section */
 		0EDF86A12DCC7E46004DAE42 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = 0EDF86972DCC7E44004DAE42 /* AlamofireEx */;
+			baseConfigurationReferenceRelativePath = Secret.xcconfig;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -199,6 +218,8 @@
 		};
 		0EDF86A22DCC7E46004DAE42 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = 0EDF86972DCC7E44004DAE42 /* AlamofireEx */;
+			baseConfigurationReferenceRelativePath = Secret.xcconfig;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -264,6 +285,7 @@
 				DEVELOPMENT_TEAM = 6H8Y6F23HB;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = AlamofireEx/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -293,6 +315,7 @@
 				DEVELOPMENT_TEAM = 6H8Y6F23HB;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = AlamofireEx/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
