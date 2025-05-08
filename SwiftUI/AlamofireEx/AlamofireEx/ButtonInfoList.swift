@@ -14,7 +14,7 @@ struct ButtonInfo: Identifiable {
 
 final class ButtonInfoList {
     
-    static let serviceManager: ServiceManager = .init()
+    static let serviceManager: ServiceManager = .shared
     
     static let buttonList: [ButtonInfo] = [
         .init(title: "GET", action: {
