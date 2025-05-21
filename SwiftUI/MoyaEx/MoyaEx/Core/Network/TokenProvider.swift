@@ -64,24 +64,15 @@ class TokenProvider: TokenProviding {
                 }
                 
                 do {
+                    
                     let tokenData = try JSONDecoder().decode(
                         TokenResponse.self,
                         from: response.data
                     )
-                    if tokenData.isSuccess {
-                        self.accessToken = tokenData.result.accessToken
-                        self.refreshToken = tokenData.result.refreshToken
-                        completion(self.accessToken, nil)
-                    } else {
-                        let error = NSError(
-                            domain: "example.com",
-                            code: -1,
-                            userInfo: [
-                                NSLocalizedDescriptionKey: "Token Refresh failed: isSuccess false"
-                            ])
-                        
-                        completion(nil, error)
-                    }
+                    self.accessToken = tokenData.accessToken
+                    self.refreshToken = tokenData.refreshToken
+
+                    completion(self.accessToken, nil)
                 } catch {
                     print("디코딩 에러: \(error)")
                     completion(nil, error)

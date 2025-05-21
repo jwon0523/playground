@@ -21,7 +21,7 @@ class APIManager: @unchecked Sendable {
         tokenProvider = TokenProvider()
         accessTokenRefresher = AccessTokenRefresher(tokenProviding: tokenProvider)
         session = Session(
-            configuration: SessionConfiguration.withCaching(),
+//            configuration: SessionConfiguration.withCaching(),
             interceptor: accessTokenRefresher
         )
         

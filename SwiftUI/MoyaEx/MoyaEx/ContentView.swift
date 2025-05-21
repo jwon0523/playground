@@ -34,6 +34,9 @@ final class ButtonInfoList {
     static let serviceManager: ContentsViewModel = .init()
     
     static let buttonList: [ButtonInfo] = [
+        .init(title: "로그인", action: {
+                    serviceManager.loginAndStoreTokens()
+                }),
         .init(title: "GET", action: {
             Task {
                 await serviceManager.getUser(name: "리버")
