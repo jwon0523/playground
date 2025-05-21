@@ -35,7 +35,9 @@ final class ButtonInfoList {
     
     static let buttonList: [ButtonInfo] = [
         .init(title: "GET", action: {
-            serviceManager.getUserData(name: "리버")
+            Task {
+                await serviceManager.getUser(name: "리버")
+            }
         }),
         .init(title: "POST", action: {
             serviceManager.createUser(

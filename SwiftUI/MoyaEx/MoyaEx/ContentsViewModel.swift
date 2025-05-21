@@ -13,9 +13,8 @@ class ContentsViewModel {
     var userData: UserData?
     let provider: MoyaProvider<UserRotuer>
     
-    init() {
-        let logger = NetworkLoggerPlugin(configuration: .init(logOptions: [.verbose]))
-        self.provider = MoyaProvider<UserRotuer>(plugins: [logger])
+    init(provider: MoyaProvider<UserRotuer> = APIManager.shared.createProvider(for: UserRotuer.self)) {
+        self.provider = provider
     }
     
 //    func getUserData(name: String) {
@@ -52,6 +51,7 @@ class ContentsViewModel {
             case .success(let response):
                 print("POST 성공: \(response.statusCode)")
             case .failure(let error):
+                // Error 처리 넣기
                 print("error", error)
             }
         }
@@ -63,6 +63,7 @@ class ContentsViewModel {
             case .success(let response):
                 print("PATCH 성공: \(response.statusCode)")
             case .failure(let error):
+                // Error 처리 넣기
                 print("error", error)
             }
         }
@@ -74,6 +75,7 @@ class ContentsViewModel {
             case .success(let response):
                 print("PUT 성공: \(response.statusCode)")
             case .failure(let error):
+                // Error 처리
                 print("error", error)
             }
         }
@@ -85,6 +87,7 @@ class ContentsViewModel {
             case .success(let response):
                 print("DELETE 성공: \(response.statusCode)")
             case .failure(let error):
+                // Error 처리
                 print("error", error)
             }
         }
