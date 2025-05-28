@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject var combineViewModel: CombineViewModel = .init()
     
     var body: some View {
         VStack(spacing: 15) {
@@ -18,6 +19,13 @@ struct ContentView: View {
                     Text(button.title)
                 })
             }
+            
+            Divider()
+                .frame(height: 2)
+            
+            TextField(text: $combineViewModel.userName, label: {
+                Text("유저 이름을 입력해주세요!")
+            })
         }
         .padding()
     }
