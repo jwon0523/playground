@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0EC8D62A2DDADB4800837001 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = 0EC8D6292DDADB4800837001 /* Moya */; };
+		0EEE04572DE7541B00D7E2F8 /* CombineMoya in Frameworks */ = {isa = PBXBuildFile; productRef = 0EEE04562DE7541B00D7E2F8 /* CombineMoya */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +28,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0EEE04572DE7541B00D7E2F8 /* CombineMoya in Frameworks */,
 				0EC8D62A2DDADB4800837001 /* Moya in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -79,6 +81,7 @@
 			name = MoyaEx;
 			packageProductDependencies = (
 				0EC8D6292DDADB4800837001 /* Moya */,
+				0EEE04562DE7541B00D7E2F8 /* CombineMoya */,
 			);
 			productName = MoyaEx;
 			productReference = 0EC8D60E2DDAD19C00837001 /* MoyaEx.app */;
@@ -358,6 +361,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 0EC8D61F2DDAD3E600837001 /* XCRemoteSwiftPackageReference "Moya" */;
 			productName = Moya;
+		};
+		0EEE04562DE7541B00D7E2F8 /* CombineMoya */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0EC8D61F2DDAD3E600837001 /* XCRemoteSwiftPackageReference "Moya" */;
+			productName = CombineMoya;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
